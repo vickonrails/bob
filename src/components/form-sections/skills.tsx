@@ -26,7 +26,7 @@ export function SkillsAndTools() {
                 <SectionItemContainer className="flex gap-3 flex-wrap p-6">
                     {fields.map((field, idx) => (
                         <div className="flex gap-2">
-                            <Input key={field.id} {...register(`skills.${idx}.skill`)} />
+                            <Input key={field.id} {...register(`skills.${idx}.title`)} />
                             <Button onClick={_ => remove(idx)} variant='ghost' className="px-2 h-auto flex place-items-center text-muted-foreground">
                                 <X className="h-4 m-auto" />
                             </Button>

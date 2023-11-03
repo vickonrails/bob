@@ -45,9 +45,10 @@ export function ContactInformationSection() {
                     type="tel"
                     {...register('phoneNumber')}
                 />
+                {/* TODO:: add a getting too long hint once things start to get quite long */}
                 <Textarea
                     placeholder="Brief career overview, achievements, present competence and future goals."
-                    label="Professional Summary"
+                    label="Professional Summary (30 word-ish)"
                     wrapperClassName="col-span-2"
                     rows={5}
                     {...register('summary')}

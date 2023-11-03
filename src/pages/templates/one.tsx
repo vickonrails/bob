@@ -49,16 +49,16 @@ const sampleData: FormFields = {
     website: 'https://victorofoegbu.com',
     summary: 'I am a software engineer with 3 years of experience building web applications. I am passionate about building products that solve real-world problems.',
     skills: [
-        { skill: 'React' },
-        { skill: 'Typescript' },
-        { skill: 'Javascript' },
-        { skill: 'Svelte' },
-        { skill: 'Node.js' },
-        { skill: 'Python' },
-        { skill: 'Torch' },
-        { skill: 'Tensorflow' },
-        { skill: 'Transformer.js' },
-        { skill: 'Next.js' },
+        { title: 'React' },
+        { title: 'Typescript' },
+        { title: 'Javascript' },
+        { title: 'Svelte' },
+        { title: 'Node.js' },
+        { title: 'Python' },
+        { title: 'Torch' },
+        { title: 'Tensorflow' },
+        { title: 'Transformer.js' },
+        { title: 'Next.js' },
     ],
     otherProjects: [
         {
@@ -144,110 +144,130 @@ export function ResumeTemplateOne({ data }: { data: FormFields }) {
 
             <hr className="border-black" />
 
-            <section className="pb-4 pt-2">
-                <h2 className="text-xs mb-2">EMPLOYMENT HISTORY</h2>
+            {/* TODO: might be a better way to check this condition */}
+            {!(workExperience?.length === 0) && (
+                <>
+                    <section className="pb-4 pt-2">
+                        <h2 className="text-xs mb-2">EMPLOYMENT HISTORY</h2>
 
-                {workExperience?.map((work, idx) => {
-                    const { startDate, endDate, company, title, location } = work
-                    return (
-                        <article key={idx} className="flex mb-4">
-                            {(startDate && endDate) && (
-                                <div className="w-1/5 text-[10px] mt-0.5">
-                                    {formatDate(endDate)} - {formatDate(startDate)}
-                                </div>
-                            )}
-                            <div className="flex-1">
-                                <div className="flex justify-between">
-                                    <h3 className="text-sm mb-2 font-medium">{title} - {company}</h3>
-                                    <p className="text-xs">{location}</p>
-                                </div>
-                                <DummyList />
-                            </div>
-                        </article>
-                    )
-                })}
-            </section>
+                        {workExperience?.map((work, idx) => {
+                            const { startDate, endDate, company, title, location, highlights } = work
+                            return (
+                                <article key={idx} className="flex mb-4">
+                                    {(startDate && endDate) && (
+                                        <div className="w-1/5 text-[10px] mt-0.5 pr-2">
+                                            {formatDate(endDate)} - {formatDate(startDate)}
+                                        </div>
+                                    )}
+                                    <div className="flex-1">
+                                        <div className="flex justify-between">
+                                            {(company && title) && (
+                                                <h3 className="text-sm mb-2 font-medium">{title} - {company}</h3>
+                                            )}
+                                            {location && (
+                                                <p className="text-xs">{location}</p>
+                                            )}
+                                        </div>
 
-            <hr className="border-black" />
-
-            <section className="pb-4 pt-2">
-                <h2 className="text-xs mb-2">EDUCATION</h2>
-
-                {education?.map((edu, idx) => {
-                    const { startDate, endDate, school, degree, location, summary } = edu
-                    return (
-                        <article key={idx} className="flex mb-4">
-                            {(startDate && endDate) && (
-                                <div className="w-1/5 text-[10px] mt-0.5">
-                                    {formatDate(endDate)} - {formatDate(startDate)}
-                                </div>
-                            )}
-                            <div className="flex-1">
-                                <div className="flex justify-between">
-                                    <h3 className="text-sm font-medium">{degree} - {school} </h3>
-                                    <p className="text-xs">{location}</p>
-                                </div>
-                                <p className="text-xs mb-2">{summary}</p>
-                                <DummyList />
-                            </div>
-                        </article>
-                    )
-                })}
-            </section>
-
-            <hr className="border-black" />
-
-            <section className="flex">
-                <h2 className="text-xs mb-2 w-1/5">OTHER PROJECTS</h2>
-
-                <section className="flex-1">
-                    {otherProjects?.map((project, idx) => {
-                        const { technologies, title, description, url, impact } = project
-                        return (
-                            <article key={idx} className="flex mb-4">
-                                <div className="flex-1">
-                                    <div className="flex items-center">
-                                        <h3 className="text-sm font-medium mr-2">{title} </h3>
-                                        <a href={url}>
-                                            <Link size={12} />
-                                        </a>
+                                        {/* TODO: don't use idx as key */}
+                                        {/* className="text-xs list-disc flex flex-col gap-1" */}
+                                        <ul className="text-xs list-disc flex flex-col gap-1">
+                                            {highlights?.map((highlight, idx) => {
+                                                if (!highlight.text) return;
+                                                return (
+                                                    <li key={idx} className="ml-4">{highlight.text}</li>
+                                                )
+                                            })}
+                                        </ul>
                                     </div>
-                                    <p className="text-xs mb-2">{description}</p>
-                                    <p className="text-xs mb-2">{impact}</p>
-                                    {technologies?.map((tech, idx) => (
-                                        <span key={idx} className="text-xs mr-2">{tech}</span>
-                                    ))}
-                                </div>
-                            </article>
-                        )
-                    })}
+                                </article>
+                            )
+                        })}
+                    </section>
+                    <hr className="border-black" />
+                </>
+            )}
+
+
+            {!(education?.length === 0) && (
+                <>
+                    <section className="pb-4 pt-2">
+                        <h2 className="text-xs mb-2">EDUCATION</h2>
+
+                        {education?.map((edu, idx) => {
+                            const { startDate, endDate, school, degree, location, summary } = edu
+                            return (
+                                <article key={idx} className="flex mb-4">
+                                    {(startDate && endDate) && (
+                                        <div className="w-1/5 text-[10px] mt-0.5">
+                                            {formatDate(endDate)} - {formatDate(startDate)}
+                                        </div>
+                                    )}
+                                    <div className="flex-1">
+                                        <div className="flex justify-between">
+                                            <h3 className="text-sm font-medium">{degree} - {school} </h3>
+                                            <p className="text-xs">{location}</p>
+                                        </div>
+                                        <p className="text-xs mb-2">{summary}</p>
+                                    </div>
+                                </article>
+                            )
+                        })}
+                    </section>
+                    <hr className="border-black" />
+                </>
+            )}
+
+
+            {!(otherProjects?.length === 0) && (
+                <>
+                    <section className="flex">
+                        <h2 className="text-xs mb-2 w-1/5">OTHER PROJECTS</h2>
+
+                        <section className="flex-1">
+                            {otherProjects?.map((project, idx) => {
+                                const { technologies, title, description, url, impact } = project
+                                return (
+                                    <article key={idx} className="flex mb-4">
+                                        <div className="flex-1">
+                                            <div className="flex items-center">
+                                                <h3 className="text-sm font-medium mr-2">{title} </h3>
+                                                <a href={url}>
+                                                    <Link size={12} />
+                                                </a>
+                                            </div>
+                                            <p className="text-xs mb-2">{description}</p>
+                                            <p className="text-xs mb-2">{impact}</p>
+                                            {technologies?.map((tech, idx) => (
+                                                <span key={idx} className="text-xs mr-2">{tech}</span>
+                                            ))}
+                                        </div>
+                                    </article>
+                                )
+                            })}
+                        </section>
+                    </section>
+                    <hr className="border-black" />
+                </>
+            )}
+
+
+            {!(skills?.length === 0) && (
+                <section className="pb-4 pt-2 flex">
+                    <h2 className="text-xs mb-2 w-1/5">SKILLS & TOOLS</h2>
+
+                    <ul className="flex flex-wrap gap-2 flex-1">
+                        {skills?.map((skill, idx) => {
+                            if (!skill.title) return;
+                            return (
+                                <li key={idx} className="text-xs p-1 bg-gray-200 rounded">{skill.title}</li>
+                            )
+                        })}
+                    </ul>
                 </section>
-            </section>
-
-            <hr className="border-black" />
-
-            <section className="pb-4 pt-2 flex">
-                <h2 className="text-xs mb-2 w-1/5">SKILLS & TOOLS</h2>
-
-                <ul className="flex flex-wrap gap-2 flex-1">
-                    {skills?.map((skill, idx) => (
-                        <li key={idx} className="text-xs p-1 bg-gray-200 rounded">{skill.skill}</li>
-                    ))}
-                </ul>
-            </section>
+            )}
         </section>
     );
 }
 
 export default TemplateOne
-
-function DummyList() {
-    return (
-        <ul className="text-xs list-disc flex flex-col gap-1">
-            <li className="ml-4">Implemented a new feature that improved user engagement by 20%. Collaborated with cross-functional teams to deliver a project ahead of schedule</li>
-            <li className="ml-4">Refactored legacy code to improve performance by 50%</li>
-            <li className="ml-4">Participated in code reviews and provided constructive feedback to team members. Collaborated with cross-functional teams to deliver a project ahead of schedule</li>
-            <li className="ml-4">Developed and maintained automated testing suites to ensure code quality, Collaborated with cross-functional teams to deliver a project ahead of schedule</li>
-        </ul>
-    )
-}

@@ -1,10 +1,10 @@
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from '@/components/ui/dialog';
 import { DialogProps, DialogTitle } from '@radix-ui/react-dialog';
-import { useForm, useFormContext } from 'react-hook-form';
+import { useNavigate } from '@tanstack/react-router';
+import { useFormContext } from 'react-hook-form';
 import { Button } from './button';
 import { Input } from './input';
 import { Textarea } from './textarea';
-import { useNavigate } from '@tanstack/react-router';
 
 interface WorkExperience {
     title?: string
@@ -13,6 +13,7 @@ interface WorkExperience {
     startDate?: string
     endDate?: string
     summary?: string
+    highlights?: { text: string }[]
 }
 
 interface OtherProjects {
@@ -33,6 +34,8 @@ interface Education {
     location?: string
 }
 
+type Skills = { title: string }[]
+
 export interface FormFields {
     fullname?: string
     title?: string
@@ -42,7 +45,7 @@ export interface FormFields {
     website?: string
     summary?: string
 
-    skills?: { skill: string }[]
+    skills?: Skills
     workExperience: WorkExperience[]
     otherProjects?: OtherProjects[]
     education?: Education[]
@@ -89,7 +92,7 @@ function BasicInformationDialog({ ...rest }: DialogProps) {
                     />
                     <Textarea
                         placeholder="Brief career overview, achievements, present competence and future goals."
-                        label="Professional Summary"
+                        label="Professional Summary (30 word-ish)"
                         wrapperClassName="col-span-2"
                         rows={5}
                         {...register('summary')}

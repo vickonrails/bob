@@ -11,7 +11,9 @@ const defaultValues: FormFields = {
     website: '',
     summary: '',
     skills: [],
-    workExperience: [],
+    workExperience: [{
+        highlights: [{ text: '' }]
+    }],
     education: []
 }
 
