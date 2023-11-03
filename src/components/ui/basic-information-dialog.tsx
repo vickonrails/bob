@@ -1,5 +1,10 @@
-import { Dialog, DialogContent, DialogHeader } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogFooter, DialogHeader } from '@/components/ui/dialog';
 import { DialogProps, DialogTitle } from '@radix-ui/react-dialog';
+import { useForm, useFormContext } from 'react-hook-form';
+import { Button } from './button';
+import { Input } from './input';
+import { Textarea } from './textarea';
+import { useNavigate } from '@tanstack/react-router';
 
 interface WorkExperience {
     title?: string
@@ -15,6 +20,7 @@ interface OtherProjects {
     url?: string
     description?: string
     impact?: string
+    technologies?: string[]
 }
 
 interface Education {
@@ -24,6 +30,7 @@ interface Education {
     startDate?: string
     endDate?: string
     summary?: string
+    location?: string
 }
 
 export interface FormFields {
@@ -42,7 +49,9 @@ export interface FormFields {
 }
 
 function BasicInformationDialog({ ...rest }: DialogProps) {
-    // const { handleSubmit, register } = useForm<FormFields>({ defaultValues: resumeValues })
+    // const { handleSubmit, register } = useForm<FormFields>()
+    const { register } = useFormContext<FormFields>()
+    const navigate = useNavigate()
 
     // const onSubmit = (data: FormFields) => {
     //     console.log(data)
@@ -55,16 +64,41 @@ function BasicInformationDialog({ ...rest }: DialogProps) {
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Basic Information</DialogTitle>
-                    <p>This is the basic information dialog.</p>
                 </DialogHeader>
 
-                {/* <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
-                    <Input {...register('fullname')} />
-                    <Input {...register('title')} />
-                    <Input {...register('email')} />
-                    <Input {...register('location')} />
-                    <Button>Continue</Button>
-                </form> */}
+                <main className='grid grid-cols-2 gap-6'>
+                    <Input
+                        placeholder="Surname, Firstname"
+                        label="Full name"
+                        {...register('fullname')}
+                    />
+                    <Input
+                        type="email"
+                        label="Email Address"
+                        {...register('email')}
+                    />
+                    <Input
+                        placeholder="Should match job title"
+                        label="Job Title"
+                        {...register('title')}
+                    />
+                    <Input
+                        placeholder="City, Country"
+                        label="Location"
+                        {...register('location')}
+                    />
+                    <Textarea
+                        placeholder="Brief career overview, achievements, present competence and future goals."
+                        label="Professional Summary"
+                        wrapperClassName="col-span-2"
+                        rows={5}
+                        {...register('summary')}
+                    />
+                </main>
+
+                <DialogFooter>
+                    <Button onClick={() => navigate({ to: '/builder' })}>Proceed to Builder</Button>
+                </DialogFooter>
             </DialogContent>
         </Dialog>
     );

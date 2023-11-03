@@ -3,37 +3,36 @@ import { Education } from "@/components/form-sections/education"
 import { OtherProjects } from "@/components/form-sections/projects"
 import { SkillsAndTools } from "@/components/form-sections/skills"
 import { WorkExperience } from "@/components/form-sections/work-experience"
-import { ResumePreview } from "@/components/resume-preview"
 import { FormFields } from "@/components/ui/basic-information-dialog"
 import { cn } from "@/lib/utils"
-import { FormProvider, useForm, useFormContext } from "react-hook-form"
+import { useForm, useFormContext } from "react-hook-form"
+import { ResumeTemplateOne } from "./templates/one"
 
-const defaultValues: FormFields = {
-    fullname: '',
-    title: '',
-    email: '',
-    location: '',
-    phoneNumber: '',
-    website: '',
-    summary: '',
-    skills: [],
-    workExperience: [],
-    education: []
-}
+// const defaultValues: FormFields = {
+//     fullname: '',
+//     title: '',
+//     email: '',
+//     location: '',
+//     phoneNumber: '',
+//     website: '',
+//     summary: '',
+//     skills: [],
+//     workExperience: [],
+//     education: []
+// }
 
 export type Form = ReturnType<typeof useForm<FormFields>>
 
 function Builder() {
-    // This is where I pass the context?
-    const form = useForm<FormFields>({ defaultValues })
+    const { getValues } = useFormContext<FormFields>()
 
     return (
-        <FormProvider {...form}>
-            <div className="flex gap-4 h-full bg-gray-200">
-                <Sidebar />
-                <ResumePreview />
+        <div className="flex gap-4 h-full bg-gray-200 overflow-y-hidden">
+            <Sidebar />
+            <div className="flex-1 overflow-y-auto">
+                <ResumeTemplateOne data={getValues()} />
             </div>
-        </FormProvider>
+        </div>
     )
 }
 
