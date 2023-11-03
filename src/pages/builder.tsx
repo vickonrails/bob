@@ -7,30 +7,29 @@ import { FormFields } from "@/components/ui/basic-information-dialog"
 import { cn } from "@/lib/utils"
 import { useForm, useFormContext } from "react-hook-form"
 import { ResumeTemplateOne } from "./templates/one"
-
-// const defaultValues: FormFields = {
-//     fullname: '',
-//     title: '',
-//     email: '',
-//     location: '',
-//     phoneNumber: '',
-//     website: '',
-//     summary: '',
-//     skills: [],
-//     workExperience: [],
-//     education: []
-// }
+import { Template, useResumeTemplate } from "./root"
 
 export type Form = ReturnType<typeof useForm<FormFields>>
 
-function Builder() {
-    const { getValues } = useFormContext<FormFields>()
+function RenderTemplate({ template }: { template?: Template }) {
+    switch (template) {
+        case 'plain':
+            return <ResumeTemplateOne />
 
+        case 'mature':
+            return <p>Mature Template</p>
+    }
+}
+
+function Builder() {
+    const template = useResumeTemplate()
     return (
         <div className="flex gap-4 h-full bg-gray-200 overflow-y-hidden">
             <Sidebar />
             <div className="flex-1 overflow-y-auto">
-                <ResumeTemplateOne data={getValues()} />
+                <button onClick={() => template?.switchTemplate('mature')}>Switch to mature</button>
+                <button onClick={() => template?.switchTemplate('plain')}>Switch to plain</button>
+                <RenderTemplate template={template?.name} />
             </div>
         </div>
     )

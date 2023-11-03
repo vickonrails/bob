@@ -22,6 +22,7 @@ interface OtherProjects {
     description?: string
     impact?: string
     technologies?: string[]
+    highlights?: { text: string }[]
 }
 
 interface Education {
@@ -32,6 +33,7 @@ interface Education {
     endDate?: string
     summary?: string
     location?: string
+    highlights?: { text: string }[]
 }
 
 type Skills = { title: string }[]
@@ -52,13 +54,8 @@ export interface FormFields {
 }
 
 function BasicInformationDialog({ ...rest }: DialogProps) {
-    // const { handleSubmit, register } = useForm<FormFields>()
     const { register } = useFormContext<FormFields>()
     const navigate = useNavigate()
-
-    // const onSubmit = (data: FormFields) => {
-    //     console.log(data)
-    // }
 
     return (
         <Dialog

@@ -1,12 +1,13 @@
 import { SectionItemContainer } from "@/pages/builder"
 import { FolderOpenDot } from "lucide-react"
-import { useFieldArray, useFormContext } from "react-hook-form"
+import { createRef, forwardRef, useImperativeHandle } from "react"
+import { UseFieldArrayAppend, useFieldArray, useFormContext } from "react-hook-form"
 import { AddSectionBtn } from "../ui/add-section-btn"
 import { FormFields } from "../ui/basic-information-dialog"
-import { Button } from "../ui/button"
 import { Input } from "../ui/input"
-import { Textarea } from "../ui/textarea"
+import { HighlightForm, HighlightPropTypes } from "./highlight"
 import SectionContainer from "./section-container"
+import { SectionItemFooter } from "./section-item-footer"
 
 export function OtherProjects() {
     const { register, control } = useFormContext<FormFields>()
@@ -14,6 +15,8 @@ export function OtherProjects() {
         name: 'otherProjects',
         control
     })
+
+    const highlightRef = createRef<RefTypeOtherProjects>()
 
     return (
         <SectionContainer
@@ -32,22 +35,54 @@ export function OtherProjects() {
                             label="Project URL" {
                             ...register(`otherProjects.${idx}.url`)}
                         />
-                        <Textarea
-                            label="Project Description"
-                            wrapperClassName="col-span-2"
-                            {...register(`otherProjects.${idx}.description`)}
-                        />
-                        <Textarea
-                            label="Impact"
-                            wrapperClassName="col-span-2"
-                            {...register(`otherProjects.${idx}.impact`)}
-                        />
                     </article>
-                    <Button onClick={() => remove(idx)}>Remove</Button>
+
+                    <OtherProjectsHighlights
+                        ref={highlightRef}
+                        index={idx}
+                    />
+
+                    <SectionItemFooter
+                        onRemoveBlock={() => remove(idx)}
+                        onAddHighlight={() => highlightRef.current?.append({ text: '' })}
+                    />
                 </SectionItemContainer>
             ))}
 
-            <AddSectionBtn title="Add Project" onClick={() => append({})} />
+            <AddSectionBtn title="Add Project" onClick={() => append({ highlights: [{ text: '' }] })} />
         </SectionContainer>
     )
+}
+
+const OtherProjectsHighlights = forwardRef<RefTypeOtherProjects, HighlightPropTypes>(({ index }, ref) => {
+    const { control, register } = useFormContext<FormFields>()
+    const { append, fields, remove } = useFieldArray({
+        name: `otherProjects.${index}.highlights`,
+        control
+    });
+
+    useImperativeHandle(ref, () => {
+        return {
+            append
+        }
+    }, [append])
+
+    return (
+        <section>
+            <section className="flex flex-col gap-2">
+                {fields.map((field, idx) => {
+                    const isFirst = idx === 0
+                    const formProps = register(`otherProjects.${index}.highlights.${idx}.text`)
+                    return (
+                        <HighlightForm isFirst={isFirst} id={field.id} formProps={formProps} remove={() => remove(idx)} />
+                    )
+                })}
+            </section>
+        </section >
+    )
+});
+
+
+export interface RefTypeOtherProjects {
+    append: UseFieldArrayAppend<FormFields, `otherProjects.${number}.highlights`>
 }

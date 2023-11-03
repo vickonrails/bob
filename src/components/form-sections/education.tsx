@@ -1,12 +1,17 @@
 import { SectionItemContainer } from "@/pages/builder"
 import { GraduationCap } from "lucide-react"
-import { useFieldArray, useFormContext } from "react-hook-form"
+import { createRef, forwardRef, useImperativeHandle } from "react"
+import { UseFieldArrayAppend, useFieldArray, useFormContext } from "react-hook-form"
 import { AddSectionBtn } from "../ui/add-section-btn"
 import { FormFields } from "../ui/basic-information-dialog"
-import { Button } from "../ui/button"
 import { Input } from "../ui/input"
-import { Textarea } from "../ui/textarea"
+import { HighlightForm, HighlightPropTypes } from "./highlight"
 import SectionContainer from "./section-container"
+import { SectionItemFooter } from "./section-item-footer"
+
+export interface RefTypeEducation {
+    append: UseFieldArrayAppend<FormFields, `education.${number}.highlights`>
+}
 
 export function Education() {
     const { control, register } = useFormContext<FormFields>()
@@ -14,6 +19,8 @@ export function Education() {
         name: 'education',
         control
     })
+
+    const highlightRef = createRef<RefTypeEducation>()
 
     return (
         <SectionContainer
@@ -47,18 +54,55 @@ export function Education() {
                             type="date"
                             {...register(`education.${idx}.endDate`)}
                         />
-                        <Textarea
-                            label="Short Summary"
-                            wrapperClassName="col-span-2"
-                            {...register(`education.${idx}.summary`)}
-                        />
                     </article>
 
-                    <Button onClick={() => remove(idx)} variant='default'>Remove</Button>
+                    <EducationHighlights
+                        ref={highlightRef}
+                        index={idx}
+                    />
+
+                    <SectionItemFooter
+                        onRemoveBlock={() => remove(idx)}
+                        onAddHighlight={() => highlightRef.current?.append({ text: '' })}
+                    />
                 </SectionItemContainer>
+
             ))}
 
-            <AddSectionBtn title="Add Education" onClick={() => append({})} />
+            <AddSectionBtn title="Add Education" onClick={() => append({ highlights: [{ text: '' }] })} />
         </SectionContainer>
     )
+}
+
+
+const EducationHighlights = forwardRef<RefTypeWorkExperience, HighlightPropTypes>(({ index }, ref) => {
+    const { control, register } = useFormContext<FormFields>()
+    const { append, fields, remove } = useFieldArray({
+        name: `education.${index}.highlights`,
+        control
+    });
+
+    useImperativeHandle(ref, () => {
+        return {
+            append
+        }
+    }, [append])
+
+    return (
+        <section>
+            <section className="flex flex-col gap-2">
+                {fields.map((field, idx) => {
+                    const isFirst = idx === 0
+                    const formProps = register(`education.${index}.highlights.${idx}.text`)
+                    return (
+                        <HighlightForm isFirst={isFirst} id={field.id} formProps={formProps} remove={() => remove(idx)} />
+                    )
+                })}
+            </section>
+        </section >
+    )
+});
+
+export interface RefTypeWorkExperience {
+    append: UseFieldArrayAppend<FormFields, `education.${number}.highlights`>
 }

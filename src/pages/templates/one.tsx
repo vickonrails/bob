@@ -98,7 +98,7 @@ export function TemplateOne() {
     return (
         <main className="bg-slate-200 min-h-full py-6">
             <div className="max-w-2xl bg-white m-auto p-4">
-                <ResumeTemplateOne data={sampleData} />
+                <ResumeTemplateOne />
             </div>
         </main>
     )
@@ -125,8 +125,7 @@ function formatDate(dateString: string) {
     return `${month}, ${date.getFullYear()}`;
 }
 
-export function ResumeTemplateOne({ data }: { data: FormFields }) {
-    // const { fullname, location, summary, phoneNumber, email, workExperience, education, skills, otherProjects } = data;
+export function ResumeTemplateOne() {
     const { email, fullname, phoneNumber, summary, workExperience, education, otherProjects, skills, location } = useWatch<FormFields>()
     return (
         <section className="p-3 flex flex-col max-w-xl bg-white mx-auto my-4">
@@ -170,7 +169,6 @@ export function ResumeTemplateOne({ data }: { data: FormFields }) {
                                         </div>
 
                                         {/* TODO: don't use idx as key */}
-                                        {/* className="text-xs list-disc flex flex-col gap-1" */}
                                         <ul className="text-xs list-disc flex flex-col gap-1">
                                             {highlights?.map((highlight, idx) => {
                                                 if (!highlight.text) return;
@@ -195,20 +193,28 @@ export function ResumeTemplateOne({ data }: { data: FormFields }) {
                         <h2 className="text-xs mb-2">EDUCATION</h2>
 
                         {education?.map((edu, idx) => {
-                            const { startDate, endDate, school, degree, location, summary } = edu
+                            const { startDate, endDate, highlights, school, degree, location } = edu
                             return (
                                 <article key={idx} className="flex mb-4">
                                     {(startDate && endDate) && (
-                                        <div className="w-1/5 text-[10px] mt-0.5">
+                                        <div className="w-1/5 text-[10px] mt-0.5 pr-2">
                                             {formatDate(endDate)} - {formatDate(startDate)}
                                         </div>
                                     )}
                                     <div className="flex-1">
                                         <div className="flex justify-between">
-                                            <h3 className="text-sm font-medium">{degree} - {school} </h3>
+                                            <h3 className="text-sm mb-2 font-medium">{degree} - {school} </h3>
                                             <p className="text-xs">{location}</p>
                                         </div>
-                                        <p className="text-xs mb-2">{summary}</p>
+
+                                        <ul className="text-xs list-disc flex flex-col gap-1">
+                                            {highlights?.map((highlight, idx) => {
+                                                if (!highlight.text) return;
+                                                return (
+                                                    <li key={idx} className="ml-4">{highlight.text}</li>
+                                                )
+                                            })}
+                                        </ul>
                                     </div>
                                 </article>
                             )
