@@ -60,7 +60,7 @@
   * {
     @apply border-border;
   }
-  a {
+  a:not([href="#templates"]) {
     @apply text-blue-600 hover:text-blue-700;
   }
   body {

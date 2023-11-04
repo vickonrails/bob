@@ -25,12 +25,20 @@ export function ResumeTemplateMature() {
                 <p className="flex-1 text-xs">{summary}</p>
             </section>
 
+            <section className="flex mb-4">
+                <h2 className="w-1/3 underline text-xs font-medium">SKILLS & TOOLS</h2>
+
+                <div className="flex flex-1 justify-end text-muted-foreground">
+                    <p className="text-xs">{skills?.map(x => x.title).join(', ')}</p>
+                </div>
+            </section>
+
             <section>
                 <h2 className="w-1/3 underline text-xs font-medium">WORK EXPERIENCE</h2>
-                {workExperience?.map(experience => {
+                {workExperience?.map((experience, idx) => {
                     const { endDate, startDate, highlights, company } = experience
                     return (
-                        <article className="flex mb-2">
+                        <article className="flex mb-2" key={idx}>
                             {(endDate && startDate) && (
                                 <p className="w-1/3 mt-2 text-[10px]">{formatDate(endDate)} - {formatDate(startDate)}</p>
                             )}
@@ -52,11 +60,11 @@ export function ResumeTemplateMature() {
             </section>
 
             <section>
-                <h2 className="w-1/3 underline text-xs font-medium">Education</h2>
-                {education?.map(education => {
+                <h2 className="w-1/3 underline text-xs font-medium">EDUCATION</h2>
+                {education?.map((education, idx) => {
                     const { endDate, startDate, highlights, school, degree, fieldOfStudy, location, summary } = education
                     return (
-                        <article className="flex mb-2">
+                        <article className="flex mb-2" key={idx}>
                             {(endDate && startDate) && (
                                 <p className="w-1/3 mt-2 text-[10px]">{formatDate(endDate)} - {formatDate(startDate)}</p>
                             )}
@@ -84,10 +92,10 @@ export function ResumeTemplateMature() {
 
             <section>
                 <h2 className="w-1/3 underline text-xs font-medium mb-2">OTHER PROJECTS</h2>
-                {otherProjects?.map(project => {
+                {otherProjects?.map((project, idx) => {
                     const { highlights, description, technologies, title, url } = project
                     return (
-                        <article className="flex mb-2">
+                        <article className="flex mb-2" key={idx}>
                             <section className="w-1/3 pr-4 text-muted-foreground">
                                 {!(technologies?.length === 0) && (
                                     <p className="text-xs">

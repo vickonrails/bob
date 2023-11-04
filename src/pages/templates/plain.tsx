@@ -6,7 +6,7 @@ export function TemplatePlain() {
     return (
         <main className="bg-slate-200 min-h-full py-6">
             <div className="max-w-2xl bg-white m-auto p-4">
-                <ResumeTemplateOne />
+                <ResumeTemplatePlain />
             </div>
         </main>
     )
@@ -33,10 +33,10 @@ export function formatDate(dateString: string) {
     return `${month}, ${date.getFullYear()}`;
 }
 
-export function ResumeTemplateOne() {
+export function ResumeTemplatePlain() {
     const { email, title, fullname, phoneNumber, summary, workExperience, education, otherProjects, skills, location } = useWatch<FormFields>()
     return (
-        <section className="py-6 px-4 flex flex-col max-w-xl bg-white mx-auto" style={{ fontFamily: 'ariel' }}>
+        <section className="py-6 px-4 flex flex-col max-w-xl bg-white mx-auto my-4" style={{ fontFamily: 'ariel' }}>
             <section className="mb-4">
                 <h1 className="text-center font-bold">{fullname}, {title}</h1>
                 <ul className="text-xs text-center flex justify-center gap-1">
