@@ -27,7 +27,7 @@ export function SkillsAndTools() {
                     {fields.map((field, idx) => (
                         <div className="flex gap-2">
                             <Input key={field.id} {...register(`skills.${idx}.title`)} />
-                            <Button type="button" onClick={_ => remove(idx)} variant='ghost' className="px-2 h-auto flex place-items-center text-muted-foreground">
+                            <Button type="button" onClick={() => remove(idx)} variant='ghost' className="px-2 h-auto flex place-items-center text-muted-foreground">
                                 <X className="h-4 m-auto" />
                             </Button>
                         </div>

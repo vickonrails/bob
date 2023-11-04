@@ -1,6 +1,6 @@
 import { FormFields } from "@/components/ui/basic-information-dialog";
+import { formatDate } from "@/lib/utils";
 import { useWatch } from "react-hook-form";
-import { formatDate } from "./plain";
 
 export function ResumeTemplateMature() {
     const { email, fullname, phoneNumber, title, summary, workExperience, education, otherProjects, skills, location } = useWatch<FormFields>()

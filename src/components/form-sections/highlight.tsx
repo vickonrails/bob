@@ -1,4 +1,4 @@
-import { UseFieldArrayRemove } from "react-hook-form";
+import { UseFieldArrayRemove, UseFormRegisterReturn } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 
@@ -6,7 +6,9 @@ export interface HighlightPropTypes {
     index: number
 }
 
-export function HighlightForm({ isFirst, id, formProps, remove }: { isFirst: boolean, id: string, formProps: any, remove: UseFieldArrayRemove }) {
+type FormProps = UseFormRegisterReturn
+
+export function HighlightForm({ isFirst, id, formProps, remove }: { isFirst: boolean, id: string, formProps: FormProps, remove: UseFieldArrayRemove }) {
     return (
         <>
             <Textarea

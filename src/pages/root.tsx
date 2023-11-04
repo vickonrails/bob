@@ -1,6 +1,6 @@
 import { FormFields } from "@/components/ui/basic-information-dialog";
 import { Outlet } from "@tanstack/react-router";
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import useFormPersist from "react-hook-form-persist";
 
@@ -116,11 +116,7 @@ interface TemplateContextProps {
     switchTemplate: (name: TemplateType) => void
 }
 
-const TemplateContext = createContext<TemplateContextProps | null>(null);
-
-export function useResumeTemplate() {
-    return useContext(TemplateContext);
-}
+export const TemplateContext = createContext<TemplateContextProps | null>(null);
 
 function Root() {
     const form = useForm<FormFields>({ defaultValues });

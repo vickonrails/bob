@@ -10,9 +10,10 @@ import { cn } from "@/lib/utils"
 import { MenubarProps } from "@radix-ui/react-menubar"
 import { MoreVertical } from "lucide-react"
 import { useForm, useFormContext } from "react-hook-form"
-import { TemplateType, useResumeTemplate } from "./root"
+import { TemplateType } from "./root"
 import { ResumeTemplateMature } from "./templates/mature"
 import { ResumeTemplatePlain } from "./templates/plain"
+import { useResumeTemplate } from "@/hooks/useResumeTemplate"
 
 export type Form = ReturnType<typeof useForm<FormFields>>
 

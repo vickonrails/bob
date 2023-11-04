@@ -1,8 +1,9 @@
 import BasicInformationDialog from "@/components/ui/basic-information-dialog"
-import { buttonVariants } from "@/components/ui/button"
 import { useDialog } from "@/hooks/useDialog"
 import { cn } from "@/lib/utils"
-import { TemplateType, useResumeTemplate } from "./root"
+import { TemplateType } from "./root"
+import { buttonVariants } from "@/components/ui/button-variants"
+import { useResumeTemplate } from "@/hooks/useResumeTemplate"
 
 function Index() {
     const { isOpen, openDialog, setOpen } = useDialog({})

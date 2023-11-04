@@ -1,4 +1,5 @@
 import { FormFields } from "@/components/ui/basic-information-dialog"
+import { formatDate } from "@/lib/utils"
 import { Link } from 'lucide-react'
 import { useWatch } from "react-hook-form"
 
@@ -10,27 +11,6 @@ export function TemplatePlain() {
             </div>
         </main>
     )
-}
-
-const months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'July',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-]
-
-export function formatDate(dateString: string) {
-    const date = new Date(dateString);
-    const month = months[date.getMonth()] as string;
-    return `${month}, ${date.getFullYear()}`;
 }
 
 export function ResumeTemplatePlain() {

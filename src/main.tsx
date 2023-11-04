@@ -54,18 +54,6 @@ const indexRoute = new Route({
   component: Index
 })
 
-// const builderRootRoute = new Route({
-//   getParentRoute: () => rootRoute,
-//   path: '/',
-//   component: Builder
-// })
-
-// const appIndexRoute = new Route({
-//   path: '/',
-//   getParentRoute: () => appRoute,
-//   component: Connections,
-// })
-
 const routeTree = rootRoute.addChildren([
   indexRoute,
   builderRoute,
@@ -77,6 +65,5 @@ const router = new Router({ routeTree })
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-    {/* <App /> */}
   </React.StrictMode>,
 )
