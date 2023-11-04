@@ -5,6 +5,7 @@ import { UseFieldArrayAppend, useFieldArray, useFormContext } from "react-hook-f
 import { AddSectionBtn } from "../ui/add-section-btn"
 import { FormFields } from "../ui/basic-information-dialog"
 import { Input } from "../ui/input"
+import { Textarea } from "../ui/textarea"
 import { HighlightForm, HighlightPropTypes } from "./highlight"
 import SectionContainer from "./section-container"
 import { SectionItemFooter } from "./section-item-footer"
@@ -32,10 +33,18 @@ export function OtherProjects() {
                             {...register(`otherProjects.${idx}.title`)}
                         />
                         <Input
-                            label="Project URL" {
-                            ...register(`otherProjects.${idx}.url`)}
+                            type="url"
+                            className="col-span-2"
+                            label="Project URL"
+                            {...register(`otherProjects.${idx}.url`)}
                         />
                     </article>
+
+                    <Textarea
+                        className="mb-4"
+                        label="Project Description"
+                        {...register(`otherProjects.${idx}.description`)}
+                    />
 
                     <OtherProjectsHighlights
                         ref={highlightRef}

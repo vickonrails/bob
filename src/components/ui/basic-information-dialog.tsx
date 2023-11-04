@@ -20,7 +20,6 @@ interface OtherProjects {
     title?: string
     url?: string
     description?: string
-    impact?: string
     technologies?: string[]
     highlights?: { text: string }[]
 }

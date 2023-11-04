@@ -60,6 +60,9 @@
   * {
     @apply border-border;
   }
+  a {
+    @apply text-blue-600 hover:text-blue-700;
+  }
   body {
     @apply bg-background text-foreground;
     

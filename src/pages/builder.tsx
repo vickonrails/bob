@@ -6,8 +6,9 @@ import { WorkExperience } from "@/components/form-sections/work-experience"
 import { FormFields } from "@/components/ui/basic-information-dialog"
 import { cn } from "@/lib/utils"
 import { useForm, useFormContext } from "react-hook-form"
-import { ResumeTemplateOne } from "./templates/one"
 import { Template, useResumeTemplate } from "./root"
+import { ResumeTemplateMature } from "./templates/mature"
+import { ResumeTemplateOne } from "./templates/plain"
 
 export type Form = ReturnType<typeof useForm<FormFields>>
 
@@ -17,7 +18,7 @@ function RenderTemplate({ template }: { template?: Template }) {
             return <ResumeTemplateOne />
 
         case 'mature':
-            return <p>Mature Template</p>
+            return <ResumeTemplateMature />
     }
 }
 
@@ -55,10 +56,10 @@ function ResumeForm() {
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex-1">
             <ContactInformationSection />
-            <SkillsAndTools />
             <WorkExperience />
-            <OtherProjects />
             <Education />
+            <OtherProjects />
+            <SkillsAndTools />
         </form>
     )
 }

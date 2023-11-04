@@ -6,7 +6,8 @@ import './index.css'
 import Builder from './pages/builder.tsx'
 import Index from './pages/index.tsx'
 import Root from './pages/root.tsx'
-import TemplateOne from './pages/templates/one.tsx'
+import { TemplateMature } from './pages/templates/mature.tsx'
+import { TemplatePlain } from './pages/templates/plain.tsx'
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -35,10 +36,16 @@ const templateListRoute = new Route({
   component: () => <p>All templates</p>
 })
 
-const templateOneRoute = new Route({
-  path: 'one',
+const plainTemplateRoute = new Route({
+  path: 'plain',
   getParentRoute: () => templatesRoute,
-  component: TemplateOne
+  component: TemplatePlain
+})
+
+const matureTemplateRoute = new Route({
+  path: 'mature',
+  getParentRoute: () => templatesRoute,
+  component: TemplateMature
 })
 
 const indexRoute = new Route({
@@ -62,7 +69,7 @@ const indexRoute = new Route({
 const routeTree = rootRoute.addChildren([
   indexRoute,
   builderRoute,
-  templatesRoute.addChildren([templateListRoute, templateOneRoute])
+  templatesRoute.addChildren([templateListRoute, plainTemplateRoute, matureTemplateRoute])
 ])
 
 const router = new Router({ routeTree })
