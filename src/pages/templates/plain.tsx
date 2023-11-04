@@ -1,6 +1,5 @@
+import { Divider, Education, OtherProjects, SectionHeading, WorkExperience } from "@/components/templates/plain-cmps"
 import { FormFields } from "@/components/ui/basic-information-dialog"
-import { formatDate } from "@/lib/utils"
-import { Link } from 'lucide-react'
 import { useWatch } from "react-hook-form"
 
 export function TemplatePlain() {
@@ -16,7 +15,10 @@ export function TemplatePlain() {
 export function ResumeTemplatePlain() {
     const { email, title, fullname, phoneNumber, summary, workExperience, education, otherProjects, skills, location } = useWatch<FormFields>()
     return (
-        <section className="py-6 px-4 flex flex-col max-w-xl bg-white mx-auto my-4" style={{ fontFamily: 'ariel' }}>
+        <section
+            className="py-6 px-4 flex flex-col max-w-xl bg-white mx-auto my-4"
+            style={{ fontFamily: 'ariel' }}
+        >
             <section className="mb-4">
                 <h1 className="text-center font-bold">{fullname}, {title}</h1>
                 <ul className="text-xs text-center flex justify-center gap-1">
@@ -26,145 +28,22 @@ export function ResumeTemplatePlain() {
                 </ul>
             </section>
 
-            <hr className="border-black" />
+            <Divider />
 
             <section className="flex pb-2 pt-2">
-                <h2 className="w-1/4 text-xs tracking-widest font-medium">PROFILE</h2>
+                <SectionHeading className="w-1/4" title="PROFILE" />
                 <p className="flex-1 text-xs">{summary}</p>
             </section>
 
-            <hr className="border-black" />
+            <Divider />
 
-            {/* TODO: might be a better way to check this condition */}
-            {!(workExperience?.length === 0) && (
-                <>
-                    <section className="pb-2">
-                        <h2 className="text-xs tracking-widest font-medium my-2">EMPLOYMENT HISTORY</h2>
-
-                        {workExperience?.map((work, idx) => {
-                            const { startDate, endDate, company, title, location, highlights } = work
-                            return (
-                                <article key={idx} className="flex mb-4">
-                                    {(startDate && endDate) && (
-                                        <div className="w-1/4 text-[10px] mt-0.5 pr-2">
-                                            {formatDate(endDate)} - {formatDate(startDate)}
-                                        </div>
-                                    )}
-                                    <div className="flex-1">
-                                        <div className="flex justify-between">
-                                            {(company && title) && (
-                                                <h3 className="text-sm mb-2 font-medium">{title} - {company}</h3>
-                                            )}
-                                            {location && (
-                                                <p className="text-xs">{location}</p>
-                                            )}
-                                        </div>
-
-                                        {/* TODO: don't use idx as key */}
-                                        <ul className="text-xs list-disc flex flex-col">
-                                            {highlights?.map((highlight, idx) => {
-                                                if (!highlight.text) return;
-                                                return (
-                                                    <li key={idx} className="ml-4">{highlight.text}</li>
-                                                )
-                                            })}
-                                        </ul>
-                                    </div>
-                                </article>
-                            )
-                        })}
-                    </section>
-                    <hr className="border-black" />
-                </>
-            )}
-
-
-            {!(education?.length === 0) && (
-                <>
-                    <h2 className="text-xs tracking-widest font-medium my-2">EDUCATION</h2>
-                    <section className="pb-2">
-
-                        {education?.map((edu, idx) => {
-                            const { startDate, endDate, highlights, school, degree, location } = edu
-                            return (
-                                <article key={idx} className="flex mb-4">
-                                    {(startDate && endDate) && (
-                                        <div className="w-1/4 text-[10px] mt-0.5 pr-4">
-                                            {formatDate(endDate)} - {formatDate(startDate)}
-                                        </div>
-                                    )}
-                                    <div className="flex-1">
-                                        <div className="flex justify-between">
-                                            <h3 className="text-sm mb-2 font-medium">{degree} - {school} </h3>
-                                            <p className="text-xs">{location}</p>
-                                        </div>
-
-                                        <ul className="text-xs list-disc flex flex-col">
-                                            {highlights?.map((highlight, idx) => {
-                                                if (!highlight.text) return;
-                                                return (
-                                                    <li key={idx} className="ml-4">{highlight.text}</li>
-                                                )
-                                            })}
-                                        </ul>
-                                    </div>
-                                </article>
-                            )
-                        })}
-                    </section>
-                    <hr className="border-black" />
-                </>
-            )}
-
-
-            {!(otherProjects?.length === 0) && (
-                <>
-                    <h2 className="text-xs tracking-widest font-medium my-2">OTHER PROJECTS</h2>
-                    <section className="flex justify-end">
-                        <section className="w-3/4">
-                            {otherProjects?.map((project, idx) => {
-                                const { technologies, title, description, url, highlights } = project
-                                return (
-                                    <article key={idx} className="flex mb-4">
-                                        <div className="flex-1">
-                                            <div className="flex items-center mb-1">
-                                                <h3 className="text-sm font-medium mr-2">{title} </h3>
-                                                {url && (
-                                                    <a href={url} target="_blank" rel="noopener noreferrer">
-                                                        <Link size={12} />
-                                                    </a>
-                                                )}
-                                            </div>
-                                            <p className="text-xs mb-1">{description}</p>
-
-                                            <ul className="text-xs list-disc flex flex-col mb-2">
-                                                {highlights?.map((highlight, idx) => {
-                                                    if (!highlight.text) return;
-                                                    return (
-                                                        <li key={idx} className="ml-4">{highlight.text}</li>
-                                                    )
-                                                })}
-                                            </ul>
-
-                                            {!(technologies?.length === 0) && (
-                                                <p className="text-xs">
-                                                    <span className="font-bold">Tech Stack</span>: {technologies?.join(', ')}
-                                                </p>
-                                            )}
-                                        </div>
-                                    </article>
-                                )
-                            })}
-                        </section>
-                    </section>
-                    <hr className="border-black" />
-                </>
-            )}
-
+            <WorkExperience workExperience={workExperience} />
+            <Education education={education} />
+            <OtherProjects otherProjects={otherProjects} />
 
             {!(skills?.length === 0) && (
                 <section className="pb-2">
-                    <h2 className="text-xs my-2 w-1/4">SKILLS & TOOLS</h2>
+                    <SectionHeading title="SKILLS & TOOLS" />
                     <div className="flex justify-end">
                         <p className="text-xs w-4/5">{skills?.map(x => x.title).join(', ')}</p>
                     </div>
@@ -173,3 +52,4 @@ export function ResumeTemplatePlain() {
         </section>
     );
 }
+

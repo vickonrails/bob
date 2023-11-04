@@ -13,7 +13,7 @@ interface WorkExperience {
     startDate?: string
     endDate?: string
     summary?: string
-    highlights?: { text: string }[]
+    highlights?: { text?: string }[]
 }
 
 interface OtherProjects {
@@ -21,7 +21,7 @@ interface OtherProjects {
     url?: string
     description?: string
     technologies?: string[]
-    highlights?: { text: string }[]
+    highlights?: { text?: string }[]
 }
 
 interface Education {
@@ -32,7 +32,7 @@ interface Education {
     endDate?: string
     summary?: string
     location?: string
-    highlights?: { text: string }[]
+    highlights?: { text?: string }[]
 }
 
 type Skills = { title: string }[]
@@ -47,7 +47,7 @@ export interface FormFields {
     summary?: string
 
     skills?: Skills
-    workExperience: WorkExperience[]
+    workExperience?: WorkExperience[]
     otherProjects?: OtherProjects[]
     education?: Education[]
 }

@@ -1,7 +1,7 @@
-import { SectionItemContainer } from "@/pages/builder";
 import { Wrench, X } from "lucide-react";
 import { useMemo } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
+import { SectionItemContainer } from "../builder/layout";
 import { AddSectionBtn } from "../ui/add-section-btn";
 import { FormFields } from "../ui/basic-information-dialog";
 import { Button } from "../ui/button";

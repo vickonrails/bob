@@ -2,12 +2,13 @@ import { RootRoute, Route, Router, RouterProvider } from '@tanstack/react-router
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
-import './index.css'
 import Builder from './pages/builder.tsx'
 import Index from './pages/index.tsx'
 import Root from './pages/root.tsx'
 import { TemplateMature } from './pages/templates/mature.tsx'
 import { TemplatePlain } from './pages/templates/plain.tsx'
+
+import './index.css'
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -33,7 +34,6 @@ const templatesRoute = new Route({
 const templateListRoute = new Route({
   path: '/',
   getParentRoute: () => templatesRoute,
-  component: () => <p>All templates</p>
 })
 
 const plainTemplateRoute = new Route({

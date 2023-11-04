@@ -1,7 +1,7 @@
-import { SectionItemContainer } from "@/pages/builder"
 import { Briefcase } from "lucide-react"
 import { createRef, forwardRef, useImperativeHandle } from "react"
 import { UseFieldArrayAppend, useFieldArray, useFormContext } from "react-hook-form"
+import { SectionItemContainer } from "../builder/layout"
 import { AddSectionBtn } from "../ui/add-section-btn"
 import { FormFields } from "../ui/basic-information-dialog"
 import { Input } from "../ui/input"

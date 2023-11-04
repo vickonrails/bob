@@ -1,6 +1,7 @@
-import { SectionItemContainer } from "@/pages/builder"
+
 import { Contact2 } from "lucide-react"
 import { useFormContext } from "react-hook-form"
+import { SectionItemContainer } from "../builder/layout"
 import { FormFields } from "../ui/basic-information-dialog"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
