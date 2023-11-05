@@ -20,11 +20,17 @@ export function ResumeTemplatePlain() {
             style={{ fontFamily: 'ariel' }}
         >
             <section className="mb-4">
-                <h1 className="text-center font-bold">{fullname}, {title}</h1>
+                {fullname && (
+                    <h1 className="text-center font-bold">
+                        <span>{fullname}</span>
+                        {title && <span>{`, ${title}`}</span>}
+                    </h1>
+                )}
+
                 <ul className="text-xs text-center flex justify-center gap-1">
-                    <p>{location}.</p>
-                    <a href={`tel:${phoneNumber}`}>{phoneNumber},</a>
-                    <a href={`mailto:${email}`}>{email},</a>
+                    {location && <p>{location} .</p>}
+                    {phoneNumber && <a href={`tel:${phoneNumber}`}>{phoneNumber},</a>}
+                    {email && <a href={`mailto:${email}`}>{email},</a>}
                 </ul>
             </section>
 
@@ -41,14 +47,13 @@ export function ResumeTemplatePlain() {
             <Education education={education} />
             <OtherProjects otherProjects={otherProjects} />
 
-            {!(skills?.length === 0) && (
-                <section className="pb-2">
-                    <SectionHeading title="SKILLS & TOOLS" />
-                    <div className="flex justify-end">
-                        <p className="text-xs w-4/5">{skills?.map(x => x.title).join(', ')}</p>
-                    </div>
-                </section>
-            )}
+
+            <section className="pb-2">
+                <SectionHeading title="SKILLS & TOOLS" />
+                <div className="flex justify-end">
+                    <p className="text-xs w-4/5">{skills?.map(x => x.title).join(', ')}</p>
+                </div>
+            </section>
         </section>
     );
 }

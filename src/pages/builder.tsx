@@ -11,11 +11,11 @@ export type Form = ReturnType<typeof useForm<FormFields>>
 
 function Builder() {
     const template = useResumeTemplate()
-    const { reset } = useFormContext<FormFields>()
+    const { reset, setValue } = useFormContext<FormFields>()
 
     const handleDownloadPDF = useCallback(() => {
         const curTemplate = template?.name === 'plain' ? 'plain' : 'mature'
-        const printWindow = window.open(`http://localhost:5173/templates/${curTemplate}`, 'printWindow', 'width=800,height=600');
+        const printWindow = window.open(`${window.location.origin}/templates/${curTemplate}`, 'printWindow', 'width=800,height=600');
         printWindow?.addEventListener('load', () => {
             printWindow.addEventListener('afterprint', () => {
                 setTimeout(() => printWindow.close(), 1000);
@@ -23,6 +23,15 @@ function Builder() {
             printWindow.print();
         })
     }, [template?.name])
+
+    const handleFormReset = useCallback(() => {
+        // deep reset form
+        setValue('education', [])
+        setValue('workExperience', [])
+        setValue('otherProjects', [])
+        setValue('skills', [])
+        reset()
+    }, [reset, setValue])
 
     return (
         <div className="flex gap-4 h-full bg-gray-200 overflow-y-hidden">
@@ -34,7 +43,7 @@ function Builder() {
                     <MoreOptions
                         trigger={<MoreVertical size={15} className="text-muted-foreground" />}
                         onDownloadPDF={handleDownloadPDF}
-                        onResetForm={() => reset()}
+                        onResetForm={handleFormReset}
                     />
                 </section>
                 <TemplateRenderer template={template?.name} />

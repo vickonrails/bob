@@ -28,7 +28,7 @@ export function Divider() {
  * OTHER PROJECTS
  */
 export function OtherProjects({ otherProjects }: { otherProjects: FormFields['otherProjects'] }) {
-    if (otherProjects?.length === 0) return null
+    // if (otherProjects?.length === 0) return null
     return (
         <>
             <SectionHeading title="OTHER PROJECTS" />
@@ -70,7 +70,6 @@ export function OtherProjects({ otherProjects }: { otherProjects: FormFields['ot
  * EDUCATION
  */
 export function Education({ education }: { education: FormFields['education'] }) {
-    if (!(education?.length === 0)) return null
     return (
         <>
             <SectionHeading title="EDUCATION" />

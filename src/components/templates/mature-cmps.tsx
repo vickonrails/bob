@@ -43,7 +43,6 @@ export function DateRange({ startDate, endDate }: { startDate?: string, endDate?
  * EDUCATION
  */
 export function Education({ education }: { education?: FormFields['education'] }) {
-    if (education && education?.length > 0) return null;
     return (
         <section>
             <SectionHeading title="EDUCATION" />

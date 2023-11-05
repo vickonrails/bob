@@ -4,20 +4,6 @@ import { createContext, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import useFormPersist from "react-hook-form-persist";
 
-const defaultValues: FormFields = {
-    fullname: '',
-    title: '',
-    email: '',
-    location: '',
-    phoneNumber: '',
-    website: '',
-    summary: '',
-    skills: [],
-    workExperience: [],
-    education: [],
-    otherProjects: []
-}
-
 export type TemplateType = 'plain' | 'mature'
 
 interface TemplateContextProps {
@@ -28,7 +14,8 @@ interface TemplateContextProps {
 export const TemplateContext = createContext<TemplateContextProps | null>(null);
 
 function Root() {
-    const form = useForm<FormFields>({ defaultValues });
+    // if something exists in local storage, use it. Else use this defaultValues
+    const form = useForm<FormFields>({});
     const [template, setTemplate] = useState<TemplateType>('plain')
 
     useFormPersist("resume-key", {
