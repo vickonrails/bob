@@ -34,12 +34,12 @@ export function ResumeTemplateMature() {
             <section>
                 <SectionHeading title="WORK EXPERIENCE" />
                 {workExperience?.map((experience, idx) => {
-                    const { endDate, startDate, highlights, company } = experience
+                    const { endDate, startDate, highlights, company, title } = experience
                     return (
                         <article className="flex mb-2" key={idx}>
                             <DateRange startDate={startDate} endDate={endDate} />
                             <div className="flex-1">
-                                <h2 className="font-medium text-xs mb-2">{company}</h2>
+                                <h2 className="font-medium text-xs mb-2">{title} - {company}</h2>
                                 <HighlightsList highlights={highlights ?? []} />
                             </div>
                         </article>
